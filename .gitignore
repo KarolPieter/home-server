@@ -1,0 +1,28 @@
+# Environment files
+.env
+*.env
+!.env.example
+
+# Database backups
+*.sql
+*.sql.gz
+*.dump
+backups/
+
+# Logs.
+*.log
+logs/
+
+# Immich data
+library/
+postgres/
+
+# SSH keys
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+!id_ed25519.pub.example
+
+# Editor swap files
+*.swp

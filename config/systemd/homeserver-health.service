@@ -1,0 +1,8 @@
+[Unit]
+Description=Server health check
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/scripts/health-check.sh
+User=root
