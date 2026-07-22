@@ -4,7 +4,6 @@
 
 set -euo pipefail
 
-DATE=$(date +%Y%m%d_%H%M%S)
 LOG="/opt/scripts/logs/health.log"
 ALERT_DISK=85
 ALERT_RAM=90
@@ -15,7 +14,7 @@ log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG"
 }
 
-log "Health check START $DATE"
+log "Health check START"
 
 CONTAINERS=("immich_server" "immich_postgres" "immich_redis")
 for c in "${CONTAINERS[@]}"; do
@@ -46,4 +45,4 @@ else
   log "NOT OK: tailscale disconnected"
 fi
 
-log "Health check END $DATE"
+log "Health check END"
