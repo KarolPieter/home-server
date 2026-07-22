@@ -15,13 +15,13 @@ included.
 | Document | Description |
 |----------|-------------|
 | [docs/architecture.md](docs/architecture.md) | Design decisions, hardware choices, networking diagram |
-| [docs/security.md](docs/security.md) | SSH hardening, firewall rules, fail2ban |
+| [docs/security.md](docs/security.md) | SSH hardening, firewall rules|
 | [docs/maintenance-schedule.md](docs/maintenance-schedule.md) | Update cadence, backup schedule, monitoring |
 
 ## Roadmap
 
 - [x] Initial setup (Docker, Immich, PostgreSQL, Redis)
-- [x] Security hardening (SSH keys, UFW, fail2ban)
+- [x] Security hardening (SSH keys, UFW)
 - [x] Automated backups and health checks
 - [ ] External drive backup (waiting for hardware purchase)
 - [ ] Monitoring (Prometheus + Grafana, after RAM upgrade)
