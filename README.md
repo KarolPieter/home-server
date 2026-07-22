@@ -15,7 +15,7 @@ included.
 | Document | Description |
 |----------|-------------|
 | [docs/architecture.md](docs/architecture.md) | Design decisions, hardware choices, networking diagram |
-| [docs/security.md](docs/security.md) | SSH hardening, firewall rules|
+| [docs/security.md](docs/security.md) | SSH hardening, firewall rules |
 | [docs/maintenance-schedule.md](docs/maintenance-schedule.md) | Update cadence, backup schedule, monitoring |
 
 ## Roadmap
