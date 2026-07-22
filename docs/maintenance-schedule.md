@@ -3,23 +3,23 @@
 ## Automatic (runs without me)
 
 The `backup.sh` script runs automatically at 2:00 via a systemd timer,
-creating a backup of the Immich database and config.
+creating a backup of the Immich database and configuration files.
 
-The `health-check.sh` script runs every 15 minutes via the same
-method. It checks containers, disk, RAM, and Tailscale status, and
+The `health-check.sh` script runs every 15 minutes via another
+systemd timer. It checks containers, disk, RAM and Tailscale status and
 logs everything to `/opt/scripts/logs/health.log`.
 
 Example output:
 
 ```
-[2026-07-22 02:00:03] Health check START 20260722_020003
-[2026-07-22 02:00:03] OK: immich_server running
-[2026-07-22 02:00:03] OK: immich_postgres running
-[2026-07-22 02:00:03] OK: immich_redis running
-[2026-07-22 02:00:03] OK: disk usage 42%
-[2026-07-22 02:00:03] OK: ram usage 61%
-[2026-07-22 02:00:04] OK: tailscale connected
-[2026-07-22 02:00:04] Health check END 20260722_020003
+[2026-07-22 01:37:33] Health check START
+[2026-07-22 01:37:33] OK: immich_server running
+[2026-07-22 01:37:33] OK: immich_postgres running
+[2026-07-22 01:37:33] OK: immich_redis running
+[2026-07-22 01:37:33] OK: disk usage 66%
+[2026-07-22 01:37:33] OK: ram usage 39%
+[2026-07-22 01:37:33] OK: tailscale connected
+[2026-07-22 01:37:33] Health check END
 ```
 
 Immich also keeps its own automatic database backups in
@@ -38,48 +38,12 @@ backup locations, and disk health. This is different from
 only logs to a file, this one I run by hand once a week to actually
 look at the full picture.
 
-```bash
-#!/bin/bash
-# weekly-check.sh - checks disk, RAM, containers, tailscale status,
-# immich backup log (automatic and mine), smart disk health,
-# temperatures, uptime, reboot status
-# performed manually every week, mostly to see the disk status and space
-
-echo "Disk:"
-df -h /
-
-echo "RAM:"
-free -h
-
-echo "Uptime:"
-uptime
-
-echo "Containers:"
-docker ps --format "table {{.Names}}\t{{.Status}}"
-
-echo "Tailscale:"
-tailscale status
-
-echo "Backup (Immich):"
-ls -lht /opt/immich/library/backups/ | head -3
-
-echo "Backup (my script):"
-ls -lht /opt/backups/ | head -3
-
-echo "S.M.A.R.T disk health:"
-sudo smartctl -H /dev/sda
-
-echo "Temperatures:"
-sensors
-
-echo "Reboot required?"
-cat /var/run/reboot-required 2>/dev/null || echo "No"
-```
+Full script: [scripts/weekly-check.sh](../scripts/weekly-check.sh)
 
 ## Monthly maintenance
 
-Every month I perform a stable channel Debian release update, after
-reading the changelog if available:
+Every month I update the system packages after checking the Debian
+changelog, if available:
 
 ```
 sudo apt update && sudo apt full-upgrade -y
@@ -100,7 +64,7 @@ docker image prune -f
 docker system prune -f
 ```
 
-Old backups, older than 30 days:
+Backups older than 30 days:
 
 ```
 find /opt/backups -name "*.gz" -mtime +30 -delete
@@ -124,7 +88,7 @@ Check the result after about 30 minutes:
 sudo smartctl -l selftest /dev/sda
 ```
 
-## update.sh, separate from all of this
+## update.sh (manual updates)
 
 `update.sh` is a different thing from the automatic security patches
 above. I run it manually, whenever I want to update Immich, not on a
@@ -141,7 +105,7 @@ between versions.
 Immich can have breaking changes between versions, so this is a
 fixed procedure, not optional:
 
-- [ ] Read the release notes: https://github.com/immich-app/immich/releases
+- [ ] Read the [Immich release notes](https://github.com/immich-app/immich/releases)
 - [ ] Manual database backup:
   ```
   docker exec immich_postgres pg_dumpall -U postgres | gzip > /opt/backups/pre-update-$(date +%Y%m%d).sql.gz
@@ -174,7 +138,7 @@ sensors
 
 - Below 40°C: OK, no need to clean
 - Above 55°C idle: clean the fan with compressed air
-- Above 70°C idle: replace the thermal paste
+- Above 70°C idle: investigate cooling (dust buildup, fan operation, thermal paste)
 
 Check the battery:
 
@@ -193,4 +157,4 @@ Current battery charge level, in %.
 
 Every 3 to 6 months, physically check the battery isn't swelling
 (bottom of the laptop case deforming). A swollen battery needs
-immediate replacement, it's a fire risk.
+immediate replacement. It's a fire risk.
