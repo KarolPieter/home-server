@@ -10,6 +10,15 @@ included.
 - VPN: Tailscale
 - Applications: Immich (Photos), PostgreSQL, Redis
 
+## Scripts
+
+| Script | Runs | What it does |
+|--------|------|--------------|
+| [`backup.sh`](scripts/backup.sh) | automatic, 2:00 daily | Backs up the Immich database and config |
+| [`health-check.sh`](scripts/health-check.sh) | automatic, every 15 min | Checks containers, disk, RAM, Tailscale |
+| [`weekly-check.sh`](scripts/weekly-check.sh) | manual, weekly | Full check: disk, RAM, containers, backups, SMART, temps |
+| [`update.sh`](scripts/update.sh) | manual | Backup, security patches, then updates Docker containers |
+
 ## Documentation
 
 | Document | Description |
