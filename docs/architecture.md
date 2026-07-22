@@ -79,6 +79,7 @@ bandwidth. Ethernet provides this more reliably than WiFi.
 ├── scripts/
 │   ├── backup.sh
 │   ├── health-check.sh
+│   ├── weekly-check.sh
 │   ├── update.sh
 │   └── logs/
 └── backups/             # database dumps + config
