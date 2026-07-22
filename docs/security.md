@@ -8,13 +8,13 @@ of one doesn't mean the whole server is compromised.
 I use SSH to connect to and administrate the home server. It's more
 secure than the now obsolete Telnet, which sent everything unencrypted.
 
-`PasswordAuthentication no` is turned off, since I verify my
-connection using ED25519 keys instead, which (as covered in the
-fail2ban section) already protects against brute-forcing on its own.
+Password authentication is turned off (`PasswordAuthentication no`),
+since I verify my connection using ED25519 keys instead, which
+already makes password brute-force attacks irrelevant.
 
-`PermitRootLogin no` is also turned off. Even if someone got hold of
-my key, they still couldn't log in directly as root, they would need
-to escalate from a regular account first.
+Direct root login is also turned off (`PermitRootLogin no`). Even if
+someone got hold of my key, they still couldn't log in directly as
+root, they would need to escalate from a regular account first.
 
 ## fail2ban
 
@@ -67,6 +67,7 @@ This setup doesn't have an IDS/IPS (like CrowdSec), no centralized log
 monitoring (SIEM), and no 2FA on SSH beyond the key itself.
 
 For a home server with one service and traffic limited to Tailscale,
-this is enough for now. I plan to add Prometheus and Grafana later,
-mainly to learn how they work, not because this setup urgently needs
-them.
+none of this is urgent. I'm aware of these tools and plan to learn
+them eventually, the same way I plan to add Prometheus and Grafana
+later, mainly to understand how they work rather than because this
+setup needs them right now.
