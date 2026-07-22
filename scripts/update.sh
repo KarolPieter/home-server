@@ -5,7 +5,6 @@
 
 set -euo pipefail
 
-DATE=$(date +%Y%m%d_%H%M%S)
 LOG="/opt/scripts/logs/update.log"
 mkdir -p "$(dirname "$LOG")"
 
@@ -13,7 +12,7 @@ log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG"
 }
 
-log "update START $DATE"
+log "update START"
 
 log "running backup first"
 /opt/scripts/backup.sh
@@ -39,4 +38,4 @@ docker compose pull
 docker compose up -d
 docker image prune -f
 
-log "update END $DATE"
+log "update END"
