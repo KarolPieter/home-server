@@ -23,8 +23,10 @@ included.
 - [x] Initial setup (Docker, Immich, PostgreSQL, Redis)
 - [x] Security hardening (SSH keys, UFW)
 - [x] Automated backups and health checks
-- [ ] External drive backup (waiting for hardware purchase)
+- [ ] More automation for weekly/monthly maintenance tasks
+- [ ] Learning Python through my DevOps course, might use it for future scripts
 - [ ] Monitoring (Prometheus + Grafana, after RAM upgrade)
+- [ ] External drive backup (no fixed timeline, depends on hardware purchase)
 
 > **Note:** Personal DevOps learning project. Documented to demonstrate
 > architecture understanding for job applications.
