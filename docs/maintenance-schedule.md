@@ -28,7 +28,7 @@ my own script.
 
 Only Debian security patches are downloaded and installed
 automatically, since they're critical for the server's safety. See
-[docs/security.md](security.md#automatic-security-updates) for details.
+See [docs/security-hardening.md](security-hardening.md#automatic-security-updates) for details.
 
 ## Weekly manual check
 
