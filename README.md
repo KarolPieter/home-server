@@ -24,8 +24,36 @@ included.
 | Document | Description |
 |----------|-------------|
 | [docs/architecture.md](docs/architecture.md) | Design decisions, hardware choices, networking diagram |
-| [docs/security.md](docs/security.md) | SSH hardening, firewall rules |
+| [docs/security-hardening.md](docs/security-hardening.md) | SSH hardening, firewall rules |
 | [docs/maintenance-schedule.md](docs/maintenance-schedule.md) | Update cadence, backup schedule, monitoring |
+
+## Repository structure
+
+```
+.
+├── .env.example
+├── .gitignore
+├── config
+│   ├── systemd
+│   │   ├── homeserver-backup.service
+│   │   ├── homeserver-backup.timer
+│   │   ├── homeserver-health.service
+│   │   └── homeserver-health.timer
+│   └── ufw-rules.md
+├── docker-compose.yml
+├── docs
+│   ├── architecture.md
+│   ├── images
+│   │   └── architecture-diagram.png
+│   ├── maintenance-schedule.md
+│   └── security-hardening.md
+├── README.md
+└── scripts
+    ├── backup.sh
+    ├── health-check.sh
+    ├── update.sh
+    └── weekly-check.sh
+```
 
 ## Roadmap
 
