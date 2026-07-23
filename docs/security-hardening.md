@@ -1,4 +1,4 @@
-# Security
+# Security hardening
 
 Defense-in-depth: several independent layers, so a failure or bypass
 of one doesn't mean the whole server is compromised.
