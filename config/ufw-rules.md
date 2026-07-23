@@ -25,5 +25,5 @@ Status: active
 
 Both rules only allow traffic from the Tailscale IP range
 (`100.x.x.x/x`), never from the public internet. See
-[docs/security.md](../docs/security.md#tailscale) for the full
+[docs/security-hardening.md](../docs/security-hardening.md#tailscale) for the full
 reasoning behind this setup.
