@@ -4,6 +4,8 @@ Self-hosted home server on Debian 13: Docker, Immich, Tailscale VPN,
 automated backups. Full architecture and security documentation
 included.
 
+![Server hardware](docs/images/server-hardware.jpg)
+
 **Stack:**
 - Operating system: Debian 13 (Trixie)
 - Container runtime: Docker Engine + Compose
@@ -44,7 +46,8 @@ included.
 ├── docs
 │   ├── architecture.md
 │   ├── images
-│   │   └── architecture-diagram.png
+│   │   ├── architecture-diagram.png
+│   │   └── server-hardware.jpg
 │   ├── maintenance-schedule.md
 │   └── security-hardening.md
 ├── README.md
