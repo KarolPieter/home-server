@@ -52,6 +52,22 @@ mentions running with machine learning disabled on 4GB systems
 ([source](https://docs.immich.app/install/requirements/)). That's why
 I disabled it.
 
+### Headless instead of a desktop environment
+
+I decided to run the server headless to save resources. 
+The laptop already has limited power, and it doesn't need to spend 
+any of it rendering a desktop environment I wouldn't even see, 
+since the screen is broken anyway.
+
+Running headless is also more practical for learning the terminal 
+and its commands properly, instead of just clicking around a GUI.
+
+It's more comfortable to manage everything from my main computer, 
+instead of constantly switching between two machines. 
+I'd also like to test whether I can administrate the server from my phone using Termux, 
+connecting the same way as from my PC, 
+essentially turning it into a pocket terminal.
+
 ### Why Debian instead of Ubuntu or other distribution
 
 Debian is known as a good choice for servers because of its stability
