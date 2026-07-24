@@ -48,6 +48,11 @@ public internet.
 Full reasoning behind choosing Tailscale in
 [docs/architecture.md](architecture.md#tailscale-instead-of-port-forwarding).
 
+This comes at a cost: if either the server or my computer loses its
+Tailscale connection, there's no remote way to fix it. A manual fix on
+the laptop itself becomes necessary. More on fixing this in
+[docs/maintenance-schedule.md](maintenance-schedule.md#troubleshooting-and-diagnostics).
+
 ## Automatic security updates
 
 Only Debian security patches are downloaded and installed
