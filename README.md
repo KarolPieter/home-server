@@ -4,7 +4,8 @@ Self-hosted home server on Debian 13: Docker, Immich, Tailscale VPN,
 automated backups. Full architecture and security documentation
 included.
 
-![Server hardware](docs/images/server-hardware.jpg)
+![ASUS R541U laptop running as a headless home server, connected via ethernet](docs/images/server-hardware.jpg)
+*The ASUS R541U running headless, connected via ethernet.*
 
 **Stack:**
 - Operating system: Debian 13 (Trixie)
