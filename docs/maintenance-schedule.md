@@ -27,7 +27,7 @@ Immich also keeps its own automatic database backups in
 my own script.
 
 Only Debian security patches are downloaded and installed
-automatically, since they're critical for the server's safety. See
+automatically, since they're critical for the server's safety.
 See [docs/security-hardening.md](security-hardening.md#automatic-security-updates) for details.
 
 ## Weekly manual check
@@ -158,3 +158,36 @@ Current battery charge level, in %.
 Every 3 to 6 months, physically check the battery isn't swelling
 (bottom of the laptop case deforming). A swollen battery needs
 immediate replacement. It's a fire risk.
+
+## Troubleshooting and diagnostics
+
+Once something goes wrong, I need to know how to fix it. So far
+there's never been a major issue, only small ones caused by my own
+mistakes, but it's still important to practice skills like reading
+logs, in case a real emergency happens one day.
+
+### SSH connection fails
+
+Since UFW only allows traffic from the Tailscale IP range, the first
+thing I check is Tailscale's status. If the `tailscale status` command
+doesn't work at all, my own computer isn't connected, and reconnecting
+it resolves the issue. If the command works but the server doesn't
+show up as connected, the problem is on the server's side.
+
+One time I simply forgot that I also need Tailscale running on my own
+computer to get through the firewall. I fixed this by setting it to
+autostart on boot, so it won't happen again.
+
+Another time, I forgot my own SSH key, which meant connecting the
+laptop to an external monitor and setting up a new key for my PC.
+The external monitor is my fallback for any situation where remote
+access isn't possible, whether that's the server losing its Tailscale
+connection or, like here, having no valid SSH key.
+
+### Practicing log-based diagnosis
+
+Beyond these two cases, I try to practice diagnosing issues before
+they actually happen, since knowing how to read logs and trace a
+problem matters as much as fixing it. For services like Immich, this
+means checking `docker compose logs`, and for system-level issues,
+`journalctl -u <service>`.
