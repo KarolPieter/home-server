@@ -16,7 +16,7 @@ Tailscale creates a private VPN, so I can reach the server remotely
 without exposing it to the public internet. UFW only allows traffic
 from the Tailscale IP range, blocking everything else. Once traffic
 reaches the server, it goes to the right Docker container. Inside
-Docker, Immich, PostgreSQL, and Redis talk to each other using service
+Docker, Immich, PostgreSQL, and Valkey talk to each other using service
 names declared in docker-compose.yml.
 
 ## Why these choices
@@ -77,6 +77,21 @@ Unlike a rolling release, Debian freezes package versions for each
 stable release. This means less risk of something breaking after an
 update. Security patches still come regularly for those frozen
 versions, so the system doesn't fall behind on fixes.
+
+### Valkey over Redis
+
+Back in 2024, Redis changed its license from BSD to a source-available model, 
+restricting how cloud providers could offer it as a managed service. 
+
+In response, a group of companies (including AWS, Google, and Oracle) 
+forked the last BSD-licensed version of Redis, called Valkey, 
+under the Linux Foundation. Valkey is wire-compatible with Redis, 
+meaning the same commands, client libraries, and environment variables 
+work with both, without any code changes.
+
+For legacy compatibility, Immich left "redis" in container names and other references, 
+except for one crucial line in the `image:` field of docker-compose.yml, 
+which led me to believe I had been using Redis this whole time.
 
 ### Ethernet over WiFi
 

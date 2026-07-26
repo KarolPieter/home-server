@@ -11,7 +11,7 @@ included.
 - Operating system: Debian 13 (Trixie)
 - Container runtime: Docker Engine + Compose
 - VPN: Tailscale
-- Applications: Immich (Photos), PostgreSQL, Redis
+- Applications: Immich (Photos), PostgreSQL, Valkey
 
 ## Scripts
 
@@ -61,7 +61,7 @@ included.
 
 ## Roadmap
 
-- [x] Initial setup (Docker, Immich, PostgreSQL, Redis)
+- [x] Initial setup (Docker, Immich, PostgreSQL, Valkey)
 - [x] Security hardening (SSH keys, UFW)
 - [x] Automated backups and health checks
 - [ ] More automation for weekly/monthly maintenance tasks
