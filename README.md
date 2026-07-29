@@ -71,3 +71,7 @@ included.
 
 > **Note:** Personal DevOps learning project. Documented to demonstrate
 > architecture understanding for job applications.
+
+## License
+
+MIT License. See [LICENSE](LICENSE) for details.
