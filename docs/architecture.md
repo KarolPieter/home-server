@@ -15,9 +15,26 @@ during power outages.
 Tailscale creates a private VPN, so I can reach the server remotely
 without exposing it to the public internet. UFW only allows traffic
 from the Tailscale IP range, blocking everything else. Once traffic
-reaches the server, it goes to the right Docker container. Inside
-Docker, Immich, PostgreSQL, and Valkey talk to each other using service
-names declared in docker-compose.yml.
+reaches the server, it goes to the right Docker container for its stack.
+
+### Immich stack
+
+Immich, PostgreSQL, and Valkey talk to each other using service
+names declared in docker-compose.yml. I connect to Immich through the
+mobile app or through a web browser, both over Tailscale. The mobile
+app automatically backs up new photos in the background. On my PC, I
+use the web browser mainly to download photos back from the server.
+
+### Zabbix stack
+
+Zabbix has two separate parts. Zabbix agent 2 runs directly on the
+host, not inside Docker, so it can read real system metrics (CPU, RAM,
+battery, disk) that a container would not have access to. It
+communicates with the zabbix-server container over the Docker bridge
+network. Zabbix server stores the collected data in its own PostgreSQL
+database, separate from the Immich one. A separate Nginx container,
+from Zabbix's official Docker images, serves the web dashboard I
+access through the browser.
 
 ## Why these choices
 
