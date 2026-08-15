@@ -39,6 +39,39 @@ phone, I connect manually through the app when I need access.
 
 Full rules in [config/ufw-rules.md](../config/ufw-rules.md).
 
+## Docker + UFW
+
+Not all allowed traffic comes from Tailscale. Adding the Zabbix agent
+required one exception.
+
+The Zabbix agent runs on the host, not inside Docker, and listens on
+port 10050. The zabbix-server container initiates the connection to
+the agent to pull data, which is called a "passive check" in Zabbix
+terminology. UFW denies all traffic by default, so I had to add a new
+rule allowing this specific traffic, coming from Docker's internal
+network instead of Tailscale.
+
+## Docker publishing ports vs UFW
+
+I discovered that anyone on my local network had access to Immich, no
+matter if they used Tailscale or not. While Immich uses its own
+account system, this wasn't a big security issue, but I still prefer
+to make it accessible only through Tailscale.
+
+By default, Docker ignores UFW rules and manages incoming traffic
+through its own set of `iptables` rules, which meant my "Tailscale
+only" rule had no effect on container ports. I installed
+[ufw-docker](https://github.com/chaifeng/ufw-docker), which made it
+possible to actually restrict container traffic to Tailscale.
+
+`ufw-docker`'s default rules still allowed traffic from entire private
+network ranges, not just Tailscale. I commented those out and kept
+only the rule allowing my Tailscale range.
+
+While fixing Immich, I noticed that Zabbix Web didn't have any UFW
+rule at all. I added an `ALLOW FWD` rule for it, restricted to
+Tailscale, the same way as Immich.
+
 ## Tailscale
 
 Tailscale is the only way to reach the server from outside my home
@@ -66,13 +99,36 @@ The same applies to other services like Docker, Immich, and Tailscale.
 Their updates can bring unintended changes, so I review release notes
 before updating them manually.
 
+## The pg_hba.conf accident
+
+`pg_hba.conf` controls which users can connect to a PostgreSQL
+database, from which hosts, and how they authenticate. While checking
+it, I found a broad rule: `host all all all scram-sha-256`, allowing
+any user to connect from anywhere. It looked unnecessary, and I try to
+keep my network rules as strict as possible, so I removed it.
+
+This broke Zabbix. The web dashboard started showing "Database error",
+because that rule was what allowed the `zabbix` user, used by both the
+dashboard and the `zabbix-server` container, to connect to the
+database at all.
+
+I checked the database container's logs instead of guessing, and
+found the exact cause:
+
+```
+FATAL: no pg_hba.conf entry for host, user "zabbix"
+```
+
+I added the rule back, but narrower than the original: limited to
+Docker's internal subnet instead of any address.
+
 ## What I intentionally kept simple
 
 This setup doesn't have an IDS/IPS (like CrowdSec), no centralized log
 monitoring (SIEM), and no 2FA on SSH beyond the key itself.
 
 For a home server with one service and traffic limited to Tailscale,
-none of this is urgent. I'm aware of these tools and plan to learn
-them eventually, the same way I plan to add Prometheus and Grafana
-later, mainly to understand how they work rather than because this
-setup needs them right now.
+none of this is urgent. I already have Zabbix running for
+infrastructure monitoring, but I'd still like to try Prometheus and
+Grafana later, mainly to understand how they work rather than because
+this setup needs another monitoring stack.
