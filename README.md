@@ -12,6 +12,7 @@ included.
 - Container runtime: Docker Engine + Compose
 - VPN: Tailscale
 - Applications: Immich (Photos), PostgreSQL, Valkey
+- Monitoring: Zabbix, btop
 
 ## Scripts
 
@@ -29,6 +30,7 @@ included.
 | [docs/architecture.md](docs/architecture.md) | Design decisions, hardware choices, networking diagram |
 | [docs/security-hardening.md](docs/security-hardening.md) | SSH hardening, firewall rules |
 | [docs/maintenance-schedule.md](docs/maintenance-schedule.md) | Update cadence, backup schedule, monitoring |
+| [docs/monitoring.md](docs/monitoring.md) | Zabbix setup, dashboard, terminal tools |
 
 ## Repository structure
 
@@ -48,8 +50,10 @@ included.
 │   ├── architecture.md
 │   ├── images
 │   │   ├── architecture-diagram.png
+│   │   ├── dashboard.png
 │   │   └── server-hardware.jpg
 │   ├── maintenance-schedule.md
+│   ├── monitoring.md
 │   └── security-hardening.md
 ├── README.md
 └── scripts
@@ -64,9 +68,10 @@ included.
 - [x] Initial setup (Docker, Immich, PostgreSQL, Valkey)
 - [x] Security hardening (SSH keys, UFW)
 - [x] Automated backups and health checks
-- [ ] More automation for weekly/monthly maintenance tasks
+- [x] Monitoring (Zabbix, alerts via Telegram)
 - [ ] Learning Python through my DevOps course, might use it for future scripts
-- [ ] Monitoring (Prometheus + Grafana, after RAM upgrade)
+- [ ] More automation for weekly/monthly maintenance tasks
+- [ ] Prometheus + Grafana (after RAM upgrade, for learning)
 - [ ] External drive backup (no fixed timeline, depends on hardware purchase)
 
 > **Note:** Personal DevOps learning project. Documented to demonstrate
